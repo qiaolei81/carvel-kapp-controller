@@ -34,6 +34,7 @@ import (
 )
 
 const (
+	// PprofPort is the port on which the pprof server is listening
 	PprofListenAddr                  = "0.0.0.0:6060"
 	kappctrlAPIPORTEnvKey            = "KAPPCTRL_API_PORT"
 	kappctrlReconcileNamespaceEnvKey = "RECONCILE_NAMESPCE"
