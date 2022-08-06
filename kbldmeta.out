@@ -1,0 +1,95 @@
+kapp-controller | starting build (using Docker): . -> kbld:rand-1659758964339166000-869810490170-kapp-controller
+kapp-controller | #1 [internal] load build definition from Dockerfile
+kapp-controller | #1 sha256:4f7380985552873d285e78f16d4bd788cc9bb58a0d70fcfc54118a86841a070c
+kapp-controller | #1 transferring dockerfile: 37B done
+kapp-controller | #1 DONE 0.0s
+kapp-controller | 
+kapp-controller | #2 [internal] load .dockerignore
+kapp-controller | #2 sha256:7d3e203c8753418433654a5a609c7c6a8efcc98193f130122cbdb339b47cab06
+kapp-controller | #2 transferring context: 34B done
+kapp-controller | #2 DONE 0.0s
+kapp-controller | 
+kapp-controller | #4 [internal] load metadata for docker.io/library/golang:1.18.4
+kapp-controller | #4 sha256:2f336ef9b0885c07b56a8eb1c734d319e03122a0c17b00bb11201d6351d72d62
+kapp-controller | #4 DONE 1.1s
+kapp-controller | 
+kapp-controller | #3 [internal] load metadata for docker.io/library/photon:4.0
+kapp-controller | #3 sha256:5ef488938814a84ca6948c5b8c57eaafa0454af7b960d6bf75a734a2372fbabe
+kapp-controller | #3 DONE 1.1s
+kapp-controller | 
+kapp-controller | #5 [stage-1 1/6] FROM docker.io/library/photon:4.0@sha256:ff8391dc1cbb1925918cd3577ecc18efe44b28c18ea786ddc71f43ffc5c8dda2
+kapp-controller | #5 sha256:5a3a99c4d7e4495b006cc70708d74d359aee1935920f1919092399ea35732017
+kapp-controller | #5 DONE 0.0s
+kapp-controller | 
+kapp-controller | #10 [deps 1/9] FROM docker.io/library/golang:1.18.4@sha256:8a62670f5902989319c4997fe21ecae7fe5aaec8ee44e4e663cfed0a3a8172fc
+kapp-controller | #10 sha256:44ee716e846551ceafd2d80242110cb69f8d61f0c07c1b285eb4a5f747316efd
+kapp-controller | #10 DONE 0.0s
+kapp-controller | 
+kapp-controller | #12 [internal] load build context
+kapp-controller | #12 sha256:2e1ec24426a69c76818070a535692669010071ff1e2d49c7a41098310233a5d0
+kapp-controller | #12 transferring context: 544.29kB 0.5s done
+kapp-controller | #12 DONE 0.6s
+kapp-controller | 
+kapp-controller | #11 [deps 2/9] WORKDIR /workspace
+kapp-controller | #11 sha256:f391ec3986989936a4f85a15e3726768f1231d29345054a01306a4f3433b7cc5
+kapp-controller | #11 CACHED
+kapp-controller | 
+kapp-controller | #13 [deps 3/9] COPY ./hack/dependencies.* ./hack/
+kapp-controller | #13 sha256:1292b110b7483fbef3472c97a933dfc13c611edb7cf196911c79bd2ff3532619
+kapp-controller | #13 CACHED
+kapp-controller | 
+kapp-controller | #14 [deps 4/9] COPY go.* ./
+kapp-controller | #14 sha256:d5ffb425c8167d16c6ee2c0471d11c2a4e973a366a169833e3a826008954c806
+kapp-controller | #14 CACHED
+kapp-controller | 
+kapp-controller | #15 [deps 5/9] COPY vendor vendor
+kapp-controller | #15 sha256:1a02ff0df6924b7395cc74fbe71e9fb35c917e28d7474749e79a705958ef4d72
+kapp-controller | #15 CACHED
+kapp-controller | 
+kapp-controller | #16 [deps 6/9] RUN mkdir out
+kapp-controller | #16 sha256:6bc7c5160b08ca3af79130dd3ae51beacd8c925939c112315879ebc57fe2098a
+kapp-controller | #16 CACHED
+kapp-controller | 
+kapp-controller | #17 [deps 7/9] RUN go run ./hack/dependencies.go install -d out --arch arm64 --os linux
+kapp-controller | #17 sha256:de2d6baa3afdef829bdee67849c4de14660e6c30a1eec0a268b7f8a2547c62a5
+kapp-controller | #17 CACHED
+kapp-controller | 
+kapp-controller | #18 [deps 8/9] COPY . .
+kapp-controller | #18 sha256:e178deab5e5f9d2e4cb876b430ec7b0026e8cda872a833d530a8a1525c8cb8c5
+kapp-controller | #18 DONE 1.1s
+kapp-controller | 
+kapp-controller | #19 [deps 9/9] RUN --mount=type=cache,target=/root/.cache/go-build   CGO_ENABLED=0 GOOS=linux GOARCH=arm64   go build -mod=vendor -ldflags="-X 'main.Version=development'" -trimpath -o out/kapp-controller ./cmd/controller
+kapp-controller | #19 sha256:02504b445c7dbaed720ed7929d27173d74b54b03c5d98f5c25e30aaab95c9ce5
+kapp-controller | #19 DONE 3.6s
+kapp-controller | 
+kapp-controller | #8 [stage-1 4/6] RUN chmod g+w /etc/pki/tls/certs
+kapp-controller | #8 sha256:dc834002b52b5d5de01e0fc38de3bfda93a5e7d735e4db9ea5c593b0351caaa8
+kapp-controller | #8 CACHED
+kapp-controller | 
+kapp-controller | #9 [stage-1 5/6] RUN cp /etc/pki/tls/certs/ca-bundle.crt /etc/pki/tls/certs/ca-bundle.crt.orig
+kapp-controller | #9 sha256:5b441f4004b41f3eafe635a9de9687e7aa369af4c45c8152272f6180ab040513
+kapp-controller | #9 CACHED
+kapp-controller | 
+kapp-controller | #6 [stage-1 2/6] RUN tdnf install -y git openssh-clients
+kapp-controller | #6 sha256:6b721b15903b10e957151b5e6e19ccb9ccfcf427bd24742bed79e146088e5ed1
+kapp-controller | #6 CACHED
+kapp-controller | 
+kapp-controller | #7 [stage-1 3/6] RUN echo "kapp-controller:x:1000:0:/home/kapp-controller:/usr/sbin/nologin" > /etc/passwd
+kapp-controller | #7 sha256:2a3923a81c4af337238c680e18e3515443f00545c8fefbd1c3f0130e20ff7259
+kapp-controller | #7 CACHED
+kapp-controller | 
+kapp-controller | #20 [stage-1 6/6] COPY --from=deps /workspace/out/* ./
+kapp-controller | #20 sha256:7aee77d4896898615cc5c1c3561e327d5f4640f1a68bf24d6eaa2d2f8d4f6f1c
+kapp-controller | #20 CACHED
+kapp-controller | 
+kapp-controller | #21 exporting to image
+kapp-controller | #21 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+kapp-controller | #21 exporting layers done
+kapp-controller | #21 writing image sha256:142db6388a6bb289a3ef04e8d4bf92b8f9c799578be46f7b55068d7ef488d802 done
+kapp-controller | #21 naming to docker.io/library/kbld:rand-1659758964339166000-869810490170-kapp-controller done
+kapp-controller | #21 DONE 0.0s
+kapp-controller | 
+kapp-controller | Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+kapp-controller | Untagged: kbld:rand-1659758964339166000-869810490170-kapp-controller
+kapp-controller | finished build (using Docker)
+resolve | final: kapp-controller -> kbld:kapp-controller-sha256-142db6388a6bb289a3ef04e8d4bf92b8f9c799578be46f7b55068d7ef488d802
