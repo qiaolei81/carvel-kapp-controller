@@ -14,6 +14,8 @@ sources:
           - #@ "--build-arg=KCTRL_VER="+data.values.kapp_controller_version
           #@ if/end data.values.platform != "":
           - #@ "--platform="+data.values.platform
+
+#@ if/end data.values.push_images:
 ---
 apiVersion: kbld.k14s.io/v1alpha1
 kind: Config
