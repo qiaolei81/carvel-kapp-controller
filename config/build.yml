@@ -5,15 +5,14 @@ kind: Config
 sources:
 - image: kapp-controller
   path: .
+  #@ if/end not data.values.image_cache:
   docker:
-    buildx:
+    build:
+      #! Always rebuild image
       pull: true
-      noCache: #@ not data.values.image_cache
+      noCache: false
       #! pass kapp_controller_version into Dockerfile.
-      rawOptions:
-      - #@ "--build-arg=KCTRL_VER="+data.values.kapp_controller_version
-      #@ if/end data.values.platform != "":
-      - #@ "--platform="+data.values.platform
+      rawOptions: #@ ["--build-arg", "KCTRL_VER="+data.values.kapp_controller_version]
 
 #@ if/end data.values.push_images:
 ---
@@ -22,3 +21,4 @@ kind: Config
 destinations:
 - image: kapp-controller
   newImage: #@ data.values.image_repo
+  tag: [latest, namespaced]

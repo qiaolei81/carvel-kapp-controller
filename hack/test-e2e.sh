@@ -8,6 +8,10 @@ if [ -z "$KAPPCTRL_E2E_NAMESPACE" ]; then
   echo "setting e2e namespace to: kappctrl-test";
   export KAPPCTRL_E2E_NAMESPACE="kappctrl-test"
 fi
+if [ -z "$SKIP_NAMESPACED" ]; then
+  echo "skip tests when in namespaced mode";
+  export SKIP_NAMESPACED=true
+fi
 # create ns if not exists because the `apply -f -` won't complain on a no-op if the ns already exists.
 kubectl create ns $KAPPCTRL_E2E_NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
 go test ./test/e2e/kappcontroller -timeout 60m $@ | tee tmp/e2eoutput.txt
