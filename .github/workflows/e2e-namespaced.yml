@@ -15,7 +15,7 @@ jobs:
           version: v0.13.0
           kubectl_version: v1.24.0
           cluster_name: kinder
-          config: kind-config.yml
+          config: ./kind-config.yml
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
