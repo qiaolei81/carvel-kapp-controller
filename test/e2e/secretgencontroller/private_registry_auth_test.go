@@ -151,15 +151,15 @@ spec:
 	defer cleanUp()
 
 	logger.Section("deploy controller config to skip registry TLS verify", func() {
-		config := `
+		config := fmt.Sprintf(`
 apiVersion: v1
 kind: Secret
 metadata:
   name: kapp-controller-config
-  namespace: kapp-controller
+  namespace: %s
 stringData:
   dangerousSkipTLSVerify: registry-svc.registry.svc.cluster.local
-`
+`, env.Namespace)
 		kapp.RunWithOpts([]string{"deploy", "-f", "-", "-a", configName},
 			e2e.RunOpts{StdinReader: strings.NewReader(config)})
 
@@ -226,7 +226,7 @@ spec:
 `, env.Namespace, pkgiName, registryNamespace) + sas.ForNamespaceYAML()
 
 		kapp.RunWithOpts([]string{"deploy", "-a", pkgiName, "-f", "-"}, e2e.RunOpts{
-			StdinReader: strings.NewReader(pkgiYaml),
+			StdinReader:  strings.NewReader(pkgiYaml),
 			OnErrKubectl: []string{"get", "app", "placeholder-private-auth", "-oyaml"},
 		})
 
@@ -246,11 +246,11 @@ metadata:
 spec:
   fetch:
     image:
-      url: registry-svc.%[3]s.svc.cluster.local:443/secret-test/test-repo
+      url: https://registry-svc.%[3]s.svc.cluster.local:443/secret-test/test-repo
 `, env.Namespace, pkgrName, registryNamespace) + sas.ForNamespaceYAML()
 
 		kapp.RunWithOpts([]string{"deploy", "-a", pkgrName, "-f", "-"}, e2e.RunOpts{
-			StdinReader: strings.NewReader(pkgrYaml),
+			StdinReader:  strings.NewReader(pkgrYaml),
 			OnErrKubectl: []string{"get", "pkgr", "-A", "-oyaml"},
 		})
 

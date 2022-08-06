@@ -30,7 +30,6 @@ jobs:
           set -e -x
           kubectl version --short
           
-          ytt -v reconcile_namespace=kappctrl-test -v reconcile_scope=namespace -v namespace=kappctrl-test -f config/ | kbld -f-
           ytt -v reconcile_namespace=kappctrl-test -v reconcile_scope=namespace -v namespace=kappctrl-test -f config/ | kbld -f- > kbld.out 2> kbldmeta.out
           cat kbldmeta.out | tail -n 1 | sed 's/.*final: kapp-controller -> \(.*\)$/\1/p'  | tail -n 1 | xargs kind load docker-image --name kinder
           kubectl apply -f kbld.out
