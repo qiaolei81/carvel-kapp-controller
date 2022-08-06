@@ -12,7 +12,10 @@ sources:
       pull: true
       noCache: false
       #! pass kapp_controller_version into Dockerfile.
-      rawOptions: #@ ["--build-arg", "KCTRL_VER="+data.values.kapp_controller_version]
+      rawOptions:
+        - #@ "--build-arg=KCTRL_VER="+data.values.kapp_controller_version
+        #@ if/end data.values.platform != "":
+        - #@ "--platform="+data.values.platform
 
 #@ if/end data.values.push_images:
 ---
