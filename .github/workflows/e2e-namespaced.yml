@@ -1,4 +1,4 @@
-name: Kind Cluster E2E tests copy
+name: Kind Cluster E2E tests - Namespaced
 
 on:
   pull_request:
