@@ -5,7 +5,6 @@ package kappcontroller
 
 import (
 	"fmt"
-	"os"
 	"strings"
 	"testing"
 	"time"
@@ -134,9 +133,6 @@ stringData:
 }
 
 func TestConfig_TrustCACerts(t *testing.T) {
-	if os.Getenv("SKIP_NAMESPACED") == "true" {
-		t.Skip("Skip in namespaced controller test")
-	}
 	env := e2e.BuildEnv(t)
 	logger := e2e.Logger{}
 	kapp := e2e.Kapp{t, env.Namespace, logger}
@@ -181,12 +177,12 @@ spec:
 	defer cleanUp()
 
 	logger.Section("deploy controller config to trust CA cert", func() {
-		config := `
+		config := fmt.Sprintf(`
 apiVersion: v1
 kind: Secret
 metadata:
   name: kapp-controller-config
-  namespace: kapp-controller
+  namespace: %s
 stringData:
   # Must match the second cert in the cert chain in test/e2e/assets/self-signed-https-server.yml
   caCerts: |
@@ -216,7 +212,7 @@ stringData:
     WM+DlzZxGMBd7QKW7xCdEuUmKxB8gQw0LvStYM/38MB5KMDtFo/uTIkr1HsEpSNG
     lYEKi+1KNYrJFl+DIUQVWoC+fi0Doiqor2D2Zkk=
     -----END CERTIFICATE-----
-`
+`, env.Namespace)
 		kapp.RunWithOpts([]string{"deploy", "-f", "-", "-a", configName},
 			e2e.RunOpts{StdinReader: strings.NewReader(config)})
 

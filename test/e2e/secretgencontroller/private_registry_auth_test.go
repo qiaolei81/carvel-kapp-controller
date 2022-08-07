@@ -151,15 +151,14 @@ spec:
 	defer cleanUp()
 
 	logger.Section("deploy controller config to skip registry TLS verify", func() {
-		config := fmt.Sprintf(`
+		config := `
 apiVersion: v1
 kind: Secret
 metadata:
   name: kapp-controller-config
-  namespace: %s
 stringData:
   dangerousSkipTLSVerify: registry-svc.registry.svc.cluster.local
-`, env.Namespace)
+`
 		kapp.RunWithOpts([]string{"deploy", "-f", "-", "-a", configName},
 			e2e.RunOpts{StdinReader: strings.NewReader(config)})
 
@@ -246,7 +245,7 @@ metadata:
 spec:
   fetch:
     image:
-      url: https://registry-svc.%[3]s.svc.cluster.local:443/secret-test/test-repo
+      url: registry-svc.%[3]s.svc.cluster.local:443/secret-test/test-repo
 `, env.Namespace, pkgrName, registryNamespace) + sas.ForNamespaceYAML()
 
 		kapp.RunWithOpts([]string{"deploy", "-a", pkgrName, "-f", "-"}, e2e.RunOpts{

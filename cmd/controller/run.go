@@ -251,7 +251,7 @@ func Run(opts Options, runLog logr.Logger) error {
 		}
 	}
 
-	if workForClusterResource { // add controller for pkgrepositories
+	if workForNamespaceResource { // add controller for pkgrepositories
 		appFactory := pkgrepository.AppFactory{coreClient, kcClient, kcConfig, sidecarCmdExec}
 
 		reconciler := pkgrepository.NewReconciler(kcClient, coreClient,
