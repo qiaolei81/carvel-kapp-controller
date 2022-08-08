@@ -6,7 +6,7 @@ sources:
 - image: kapp-controller
   path: .
   docker:
-    buildx:
+    build:
       pull: true
       noCache: #@ not data.values.image_cache
       #! pass kapp_controller_version into Dockerfile.

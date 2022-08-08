@@ -113,7 +113,7 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: #@ "kapp-controller-cluster-role-binding-" + data.values.namespace
+  name: kapp-controller-cluster-role-binding
 subjects:
 - kind: ServiceAccount
   name: kapp-controller-sa
@@ -126,7 +126,7 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: #@ "pkg-apiserver:system:auth-delegator:" + data.values.namespace
+  name: pkg-apiserver:system:auth-delegator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -139,7 +139,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: #@ "pkgserver-auth-reader-" + data.values.namespace
+  name: pkgserver-auth-reader
   namespace: kube-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
